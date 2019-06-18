@@ -14,65 +14,58 @@ let options = {
 }
 
 var pool = new pg.Pool(options);
-let getAllStores = "";
-pool.connect((err, client, done) => {
-    getAllStores = () => {
-        client.query("select * from bookstores")
-            .then(response => {
-                for (var i = 0; i < response.rowCount; i++) {
-                    allEntries = "name: " + response.rows[i].name + " " + "address: " + response.rows[i].address /*+ " " + res.rows[i].imageurl */;
-                    console.log(allEntries);
-                }
-                return allEntries
-            })
-            .then(allEntries => {
-                render(allEntries);
-            })
 
-            .catch(err => { });
-    }
-    // const getAllStores = "select * from bookstores";
-    // client.query(getAllStores)
-    //     .then(response => {
-    //         for (var i = 0; i < response.rowCount; i++) {
-    //             allEntries = "name: " + response.rows[i].name + " " + "address: " + response.rows[i].address /*+ " " + res.rows[i].imageurl */;
-    //             console.log(allEntries);
-    //         }
-    //     })
-    //     .catch(err => { });
 
-    // const addStore = {
-    //     const {name, address, imageurl} = req.body;
-    //     text: "insert into bookstores (name,address,imageurl) values ($1,$2,$3)",
-    //     values: [name, address, imageurl]
-    // }
-    // client.query(addStore)
-    //     .then(response => {
-    //         console.log(response);
-    //     })
-})
 
-function hello() {
-    console.log("you and the people are all voting for the mayor");
-}
+pool.connect((err, client, done) => { });
+
+
+
+// function hello() {
+//     console.log("you and the people are all voting for the mayor");
+// }
 
 app.use(cors());
-
+app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/bookstores', (req, res) => {
-    //getAllStores();
 
-    hello();
-    console.log("me me me me ")
-    res.send(getAllStores());
+    pool.query("select * from bookstores")
+        .then(response => {
+            // for (var i = 0; i < response.rowCount; i++) {
+            //     allEntries = "name: " + response.rows[i].name + " " + "address: " + response.rows[i].address /*+ " " + res.rows[i].imageurl */;
+            //     console.log(allEntries);
+
+            res.send(response.rows);
+        })
+        .catch(err => { console.log(err) });
+    // .catch(err => { res.send([]);});
+
+    // res.send(getAllStores());
 
 });
+
+
+
 
 app.post('/bookstores', (req, res) => {
+    console.log(req.body)
+    let name = req.body.name;
+    let address = req.body.address;
+    let imageurl = req.body.imageurl;
+    const text = "insert into bookstores (name,address,imageurl) values ($1,$2,$3)"
+    const values = [name, address, imageurl]
 
+    
+    pool.query(text, values)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(err => console.log(err))
 });
 
-pool.end();
+//pool.end();
 
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
