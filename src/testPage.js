@@ -24,6 +24,7 @@ class Test extends React.Component {
                 this.setState({
                     bookstores: response
                 })
+                console.log(response.data);
             })
             .catch(err => console.log(err));
     }
@@ -32,12 +33,13 @@ class Test extends React.Component {
     formPost = (event) => {
         event.preventDefault();
         console.log(event.target);
-        // let data = {
-        //     name: event.target[0],
-        //     address: event.target[1],
-        //     phone_number: event.target[2],
-        // };
-        Axios.post('http://localhost:3000/bookstores')
+        let data = {
+            name: event.target[0].value,
+            address: event.target[1].value,
+            imageurl: event.target[2].value,
+        };
+        console.log(data);
+        Axios.post('http://localhost:3000/bookstores', data)
             .then((response) => {
                 //console.log(data);
                 this.setState({
