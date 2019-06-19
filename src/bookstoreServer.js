@@ -15,7 +15,6 @@ let options = {
 
 var pool = new pg.Pool(options);
 
-
 // Opens access to database
 pool.connect((err, client, done) => { });
 
@@ -33,16 +32,14 @@ app.get('/bookstores', (req, res) => {
 
 });
 
-
-
 // Post data that is collected from the form
 app.post('/bookstores', (req, res) => {
     console.log(req.body)
     let name = req.body.name;
     let address = req.body.address;
     let imageurl = req.body.imageurl;
-    const text = "insert into bookstores (name,address,imageurl) values ($1,$2,$3)"
-    const values = [name, address, imageurl]
+    let text = "insert into bookstores (name,address,imageurl) values ($1,$2,$3)";
+    let values = [name, address, imageurl];
 
     pool.query(text, values)
         .then(response => {
@@ -50,6 +47,17 @@ app.post('/bookstores', (req, res) => {
         })
         .catch(err => console.log(err))
 });
+
+app.delete('/bookstores', (req, res) => {
+    let text = "delete from bookstores where (id) = ($1)";
+    let id = [id];
+
+    pool.query(text, id)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(err => console.log(err))
+})
 
 //pool.end();
 
