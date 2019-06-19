@@ -16,6 +16,14 @@ class Test extends React.Component {
         })
     }
 
+    componentWillMount() {
+        console.log('Component will mount!')
+    }
+
+    componentDidMount() {
+        this.dataB();
+    }
+
     // Mounts the form onto the screen after add campus is pressed
     // Will send input data to database
     dataB = () => {
@@ -24,9 +32,29 @@ class Test extends React.Component {
                 this.setState({
                     bookstores: response.data
                 })
+                //console.log(response);
+                //console.log(bookstores);
                 console.log(response.data);
             })
             .catch(err => console.log(err));
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("Should comp update was called")
+        return this.bookstores !== nextState.bookstores
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log("will update was called")
+        //this.dataB();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('Component did update!')
+        //this.dataB();
+    }
+    componentWillUnmount(){
+        console.log("I unmounted");
     }
 
     // Will take info from form and send it to the database
@@ -56,11 +84,11 @@ class Test extends React.Component {
         if (this.state.displayForm === true) {
             return (
                 //action="http://localhost:3000/campus"
-                <form method="post"  onSubmit={this.formPost}>
+                <form method="post" onSubmit={this.formPost}>
                     <input type="text" name="name" placeholder="name" value="Test" />
                     <input type="text" name="address" placeholder="address" value="test" />
                     <input type="text" name="imageurl" placeholder="imageurl" value="https://www.welikela.com/wp-content/uploads/2016/01/last-bookstore-book-display.jpg" />
-                    <input type="submit" />
+                    <input type="submit" onClick={this.dataB} />
                 </form>
             )
         } else {
@@ -70,22 +98,27 @@ class Test extends React.Component {
 
     results = () => {
         Axios.get("http://localhost:3000/bookstores")
-        .then(res => {
-            //console.log(res)
-        })
-        .catch(err => {})
+            .then(res => {
+                //console.log(res)
+            })
+            .catch(err => { })
     }
     render() {
-        const info = this.state.bookstores.map( (i) =><BookstoreRender i={i}/> )
+        const info = this.state.bookstores.map(store => <BookstoreRender name={store.name} address={store.address} imageurl={store.imageurl} />)
+        console.log(info);
         return (
             <div>
                 <h1>Test</h1>
-                {this.dataB}
+                {/* {this.dataB} */}
+                {info}
                 <button onClick={this.handleDisplayValue}>Test</button>
                 <br></br>
-                {info}
-                <br></br>
                 {this.renderForm()}
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         )
     }
