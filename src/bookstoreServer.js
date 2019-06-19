@@ -16,39 +16,26 @@ let options = {
 var pool = new pg.Pool(options);
 
 
-
+// Opens access to database
 pool.connect((err, client, done) => { });
 
+app.use(cors());            // Allows us to use http
+app.use(bodyParser.json()); // Parse data
+app.use(express.json());    // Parse data
 
-
-// function hello() {
-//     console.log("you and the people are all voting for the mayor");
-// }
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
-
+// Get bookstores from database
 app.get('/bookstores', (req, res) => {
-
     pool.query("select * from bookstores")
         .then(response => {
-            // for (var i = 0; i < response.rowCount; i++) {
-            //     allEntries = "name: " + response.rows[i].name + " " + "address: " + response.rows[i].address /*+ " " + res.rows[i].imageurl */;
-            //     console.log(allEntries);
-
             res.send(response.rows);
         })
         .catch(err => { console.log(err) });
-    // .catch(err => { res.send([]);});
-
-    // res.send(getAllStores());
 
 });
 
 
 
-
+// Post data that is collected from the form
 app.post('/bookstores', (req, res) => {
     console.log(req.body)
     let name = req.body.name;
@@ -57,7 +44,6 @@ app.post('/bookstores', (req, res) => {
     const text = "insert into bookstores (name,address,imageurl) values ($1,$2,$3)"
     const values = [name, address, imageurl]
 
-    
     pool.query(text, values)
         .then(response => {
             console.log(response);
@@ -67,6 +53,7 @@ app.post('/bookstores', (req, res) => {
 
 //pool.end();
 
+// Opens port
 app.listen(3000, function () {
     console.log('App listening on port 3000!');
 });
