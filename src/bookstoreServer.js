@@ -16,7 +16,15 @@ let options = {
 var pool = new pg.Pool(options);
 
 // Opens access to database
-pool.connect((err, client, done) => { });
+pool.connect()
+.then( res => {
+    pool.query('CREATE TABLE IF NOT EXISTS bookstores (id SERIAL PRIMARY KEY, name TEXT, address TEXT, imageurl TEXT)')
+    .then( res => { 
+        console.log('done');
+    })
+    .catch( err => console.log(err));
+})
+.catch( err => console.log(err));
 
 app.use(cors());            // Allows us to use http
 app.use(bodyParser.json()); // Parse data
@@ -44,8 +52,12 @@ app.post('/bookstores', (req, res) => {
     pool.query(text, values)
         .then(response => {
             console.log(response);
+            res.send('its good');
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err);
+            res.send('not good')
+        })
 });
 
 app.delete('/bookstores', (req, res) => {
