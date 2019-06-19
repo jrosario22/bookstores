@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import BookstoreRender from './bookstoreRender';
 
 
 class Test extends React.Component {
@@ -15,14 +16,13 @@ class Test extends React.Component {
         })
     }
 
-    // Will mount the form onto the screen after add campus is pressed
-    componentDidMount() {
+    // Mounts the form onto the screen after add campus is pressed
+    // Will send input data to database
+    dataB = () => {
         Axios.get('http://localhost:3000/bookstores')
             .then((response) => {
-                // console.log("did get request")
-                // console.log(response)
                 this.setState({
-                    bookstores: response
+                    bookstores: response.data
                 })
                 console.log(response.data);
             })
@@ -31,7 +31,7 @@ class Test extends React.Component {
 
     // Will take info from form and send it to the database
     formPost = (event) => {
-        event.preventDefault();
+        event.preventDefault();         // Stops page refresh after submit
         console.log(event.target);
         let data = {
             name: event.target[0].value,
@@ -45,8 +45,6 @@ class Test extends React.Component {
                 this.setState({
                     data: response
                 });
-                console.log(response);
-                console.log("Response worked");
             })
             .catch(function (error) {
                 //Error Text
@@ -73,19 +71,21 @@ class Test extends React.Component {
     results = () => {
         Axios.get("http://localhost:3000/bookstores")
         .then(res => {
-            console.log(res)
+            //console.log(res)
         })
         .catch(err => {})
     }
     render() {
+        const info = this.state.bookstores.map( (i) =><BookstoreRender i={i}/> )
         return (
             <div>
                 <h1>Test</h1>
+                {this.dataB}
                 <button onClick={this.handleDisplayValue}>Test</button>
                 <br></br>
-                {this.renderForm()}
+                {info}
                 <br></br>
-
+                {this.renderForm()}
             </div>
         )
     }
