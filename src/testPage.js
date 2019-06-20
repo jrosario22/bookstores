@@ -1,12 +1,12 @@
 import React from 'react';
 import Axios from 'axios';
-import BookstoreRender from './bookstoreTemplate';
 import AddStoreForm from './addStoreForm';
+import BookstoreTemplate from './bookstoreTemplate';
 
 class Test extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { bookstores: [], displayForm: false };
+        this.state = { bookstores: [], displayForm: false, id: ''};
     }
 
     // Will hide form until add campus is pressed
@@ -17,18 +17,16 @@ class Test extends React.Component {
     }
 
     componentDidMount() {
-        this.dataB();
+        this.displayStoreData();
     }
 
     // Will send input data to database
-    dataB = () => {
+    displayStoreData = () => {
         Axios.get('http://localhost:3000/bookstores')
             .then((response) => {
                 this.setState({
                     bookstores: response.data
                 });
-                //console.log(response);
-                //console.log(bookstores);
                 console.log('got this:');
                 console.log(response.data);
             })
@@ -36,43 +34,46 @@ class Test extends React.Component {
     }
 
     // Will take info from form and send it to the database
-    formPost = () => {
+    addStore = () => {
         let form = document.getElementById('theForm');
         console.log(form);
         let data = {
             name: form.childNodes[0].value,
             address: form.childNodes[1].value,
-            imageurl: form.childNodes[2].value,
+            imageurl: form.childNodes[2].value
         };
         console.log(data);
         Axios.post('http://localhost:3000/bookstores', data)
             .then((response) => {
                 console.log(response);
-                this.dataB();
+                this.displayStoreData();
+            })
+            .catch(err => console.log(err))
+    }
 
+    deleteStore = () => {
+        console.log("delete pressed");
+        Axios.delete('http://localhost:3000/bookstores/{this.state.id}')
+            .then(response => {
+                console.log("info was deleted")
+                // this.setState({
+                //     bookstores: response
+                // })
             })
-            .catch(function (error) {
-                //Error Text
-                console.log(error);
-            })
+            .catch(err => console.log(err))
     }
 
     render() {
-        const info = this.state.bookstores.map(store => <BookstoreRender name={store.name} address={store.address} imageurl={store.imageurl} />)
-        console.log(info);
-        const form = this.handleDisplayValue ? <AddStoreForm dataB={this.dataB} formPost={this.formPost} /> : null;
+        const storeInfo = this.state.bookstores.map(store => <BookstoreTemplate name={store.name} address={store.address} imageurl={store.imageurl} />)
+        console.log(storeInfo);
+        const storeForm = this.handleDisplayValue ? <AddStoreForm displayStoreData={this.displayStoreData} formPost={this.addStore} /> : null;
         return (
             <div>
                 <h1>Test</h1>
                 {/* {this.dataB} */}
-                {info}
-                {/* <button onClick={this.handleDisplayValue}>Test</button> */}
+                {storeInfo}
                 <br></br>
-                {form}
-                {/* {addStoreForm()} */}
-                <br></br>
-                <br></br>
-                <br></br>
+                {storeForm}
                 <br></br>
                 <br></br>
             </div>
