@@ -6,11 +6,11 @@ function AddStoreForm(props){
     return (
         //action="http://localhost:3000/campus"
         
-        <div id="theForm">
+        <div id="storeForm">
             <input type="text" name="name" placeholder="name" value="Test" />
             <input type="text" name="address" placeholder="address" value="test" />
             <input type="text" name="imageurl" placeholder="imageurl" value="https://www.welikela.com/wp-content/uploads/2016/01/last-bookstore-book-display.jpg" />
-            <button onClick={props.formPost}>Click</button> 
+            <button onClick={props.addStore}>Click</button> 
             {/* <input type="submit" onClick={this.dataB()} /> */}
         </div>
     )
