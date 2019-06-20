@@ -18,7 +18,7 @@ var pool = new pg.Pool(options);
 // Opens access to database
 pool.connect()
 .then( res => {
-    pool.query('CREATE TABLE IF NOT EXISTS bookstores (id SERIAL PRIMARY KEY, name TEXT, address TEXT, imageurl TEXT)')
+    pool.query('create table if not exist bookstores (id serial primary key, name text, address text, imageurl text)')
     .then( res => { 
         console.log('done');
     })
@@ -37,7 +37,6 @@ app.get('/bookstores', (req, res) => {
             res.send(response.rows);
         })
         .catch(err => { console.log(err) });
-
 });
 
 // Post data that is collected from the form
@@ -66,7 +65,8 @@ app.delete('/bookstores', (req, res) => {
 
     pool.query(text, id)
     .then(response => {
-        console.log(response)
+        console.log(response);
+        res.send('deleted');
     })
     .catch(err => console.log(err))
 })
