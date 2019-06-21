@@ -18,7 +18,7 @@ var pool = new pg.Pool(options);
 // Opens access to database
 pool.connect()
 .then( res => {
-    pool.query('create table if not exist bookstores (id serial primary key, name text, address text, imageurl text)')
+    pool.query('create table if not exists bookstores (id serial primary key, name text, address text, imageurl text)')
     .then( res => { 
         console.log('done');
     })
@@ -59,11 +59,13 @@ app.post('/bookstores', (req, res) => {
         })
 });
 
-app.delete('/bookstores', (req, res) => {
+// Delete store from Database
+app.delete('/bookstores/:id', (req, res) => {
+    let id = req.params.id;
     let text = "delete from bookstores where (id) = ($1)";
-    let id = [id];
+    let values = [id];
 
-    pool.query(text, id)
+    pool.query(text, values)
     .then(response => {
         console.log(response);
         res.send('deleted');
