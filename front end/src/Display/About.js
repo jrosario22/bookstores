@@ -7,7 +7,13 @@ export default class About extends Component{
  render(){
     return (
       <div>
-      	<p> we are the best company seeking for the best</p>
+      	
+      	<p> library app that keeps track of bookstore in the bronx that
+
+
+      	</p>
+     
+
      </div>
     
     );

@@ -3,18 +3,20 @@
 
 import React, { Component } from 'react';
     //import logo from './logo.svg';
-import './App.css';
+import './CSS/App.css';
+
+
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Books from './Components/Books.js';
-import Home from './Components/Home.js';
-import About from './Components/About.js';
-import Contact from './Components/Contact.js';
-import Store from './Components/Store.js';
+import Books from './Display/Books.js';
+import Home from './Display/Home.js';
+import About from './Display/About.js';
+import Contact from './Display/Contact.js';
+import Store from './Display/Store.js';
 
     
 const MainMenu = () => {
   return (
-    <div>
+    <nav>
       <Link to="/">
         <button>Home</button>
       </Link>
@@ -30,12 +32,13 @@ const MainMenu = () => {
       <Link to="/contact">
         <button>Contact</button>
       </Link>
-    </div>
+    </nav>
   );
 };
 
     class App extends Component {
       render() {
+        
         return (
           <Router>
             <div className="App">

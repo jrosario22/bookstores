@@ -1,3 +1,7 @@
+div{
+
+}
+
 .App {
   text-align: center;
 }
@@ -10,6 +14,7 @@
 
 .App-header {
   background-color: #41aff4;
+  /*background-image: url("https://www.qualtrics.com/blog/wp-content/uploads/2018/08/shutterstock_1068141515.jpg");*/
   min-height: 10vh;
   display: flex;
   flex-direction: column;

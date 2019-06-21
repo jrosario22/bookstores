@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+  
+
+import React, { Component } from 'react';
+    //import logo from './logo.svg';
+import './CSS/Home.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Books from './Display/Books.js';
+import Home from './Display/Home.js';
+import About from './Display/About.js';
+import Contact from './Display/Contact.js';
+import Store from './Display/Store.js';
+
+    
+const MainMenu = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Link to="/">
+        <button>Home</button>
+      </Link>
+      <Link to="/about">
+        <button>About</button>
+      </Link>
+      <Link to="/books">
+        <button>Books</button>
+      </Link>
+      <Link to="/store">
+        <button>Store</button>
+      </Link>
+      <Link to="/contact">
+        <button>Contact</button>
+      </Link>
     </div>
   );
-}
+};
 
-export default App;
+    class App extends Component {
+      render() {
+        return (
+          <Router>
+            <div className="App">
+              <header className="App-header">
+               
+                <h1 className="App-title">Welcome to the Book Store</h1>
+                <MainMenu />
+              </header>
+              <div>
+                <Route exact path="/" component={Home} /> 
+                <Route exact path="/about" component={About} />
+                <Route exact path="/books" component={Books} />
+                <Route exact path="/store" component={Store} />
+                <Route exact path="/contact" component={Contact} />
+                
+              </div>
+            </div>
+          </Router>
+        );
+      }
+    }
+
+    export default App;
