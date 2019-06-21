@@ -1,0 +1,115 @@
+.header-color {
+  background: #00b09b;
+  background: -webkit-linear-gradient(to right, #96c93d, #00b09b);
+  background: linear-gradient(to right, #96c93d, #00b09b);
+}
+
+.home-gridbody {
+background: #00b09b;
+background: -webkit-linear-gradient(to right, #96c93d, #00b09b);
+background: linear-gradient(to right, #96c93d, #00b09b);
+
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.projects-grid {
+  display: flex;
+}
+
+
+
+/* contact page css */
+
+.contact-body {
+  margin: auto;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  padding-top: 2em;
+}
+
+.contact-grid {
+  text-align: center;
+  justify-content: center;
+  width: 80%;
+  height: 550px;
+  background: white;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.contact-grid h2 {
+  font-family: 'Anton', sans-serif;
+}
+
+.contact-grid p {
+  font-family: 'Oxygen', sans-serif;
+  font-weight: bold;
+}
+
+ .contact-grid hr {
+  border-top: 5px dotted black;
+  width: 50%;
+  margin: auto;
+}
+
+.contact-list i {
+  font-size: 66px;
+  padding-right: 5rem;
+}
+
+
+/* contact page css */
+
+.book-img {
+  height: 350px;
+  padding-top: 5em;
+}
+
+.follow-page {
+  background-color: black;
+  opacity: .8;
+  width: 55%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.follow-page h1 {
+  font-size: 66px;
+  font-weight: bold;
+  color: white;
+}
+
+.follow-page hr {
+  border-top: 5px dotted white;
+  width: 50%;
+  margin: auto;
+}
+
+.follow-page p {
+  color: white;
+  font-size: 20px;
+  padding: 1em;
+}
+
+.social-links {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: auto;
+}
+
+.social-links i {
+  color: white;
+  font-size: 5em;
+  padding: 8px;
+}
+.about{
+  font-size: 60px;
+}
