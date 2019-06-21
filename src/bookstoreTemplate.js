@@ -1,13 +1,16 @@
 import React from 'react';
 
 function BookstoreTemplate(props) {
+    console.log(props);
+    function deleteSelf() {
+        props.deleteStore(props.id);
+    }
     return (
-        <div>
+        <div id="bookTemplate">
             <label>{props.name}</label>
             <label>{props.address}</label>
             <img src={props.imageurl} alt="default"/>
-            <button onClick={props.edit}>Edit</button>
-            <button onClick={props.deleteStore}>Delete</button>
+            <button onClick={deleteSelf}>Delete {props.id}</button>
         </div>
     )
 }
